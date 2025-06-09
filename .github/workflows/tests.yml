@@ -26,14 +26,12 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Get testing lib
-        run: git clone https://github.com/Yandex-Practicum/tests-blog-customizer.git /tmp/tests-blog-customizer
-
-      - name: Run tests
+      - name: Get and run tests
         run: |
-				cd /tmp/tests-blog-customizer
-				npx playwright install --with-deps
-				bash run.sh
+          git clone https://github.com/Yandex-Practicum/tests-blog-customizer.git /tmp/tests-blog-customizer
+          cd /tmp/tests-blog-customizer
+          npx playwright install --with-deps
+          bash run.sh
 
       - uses: actions/upload-artifact@v4
         if: always()
