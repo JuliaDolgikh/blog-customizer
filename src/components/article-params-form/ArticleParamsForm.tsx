@@ -23,33 +23,32 @@ export const ArticleParamsForm = ({
 }: {
   onApply: (state: ArticleStateType) => void;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formState, setFormState] = useState(defaultArticleState);
-
   const ref = useRef<HTMLDivElement>(null);
 
   useOutsideClickClose({
-    isOpen,
-    onChange: setIsOpen,
-    onClose: () => setIsOpen(false),
+    isOpen: isMenuOpen,
+    onChange: setIsMenuOpen,
+    onClose: () => setIsMenuOpen(false),
     rootRef: ref,
   });
 
   const handleApply = () => {
     onApply(formState);
-    setIsOpen(false);
+    setIsMenuOpen(false);
   };
 
   const handleReset = () => {
     setFormState(defaultArticleState);
     onApply(defaultArticleState);
-    setIsOpen(false);
+    setIsMenuOpen(false);
   };
 
   return (
     <>
-      <ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
-      {isOpen && (
+      <ArrowButton isOpen={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)} />
+      {isMenuOpen && (
         <aside ref={ref} className={`${styles.container} ${styles.container_open}`}>
           <form
             className={styles.form}
@@ -58,7 +57,7 @@ export const ArticleParamsForm = ({
               handleApply();
             }}
           >
-			  <h2 className={styles.title}>Задайте параметры</h2>
+            <h2 className={styles.title}>Задайте параметры</h2>
 
             <Select
               title="Шрифт"
